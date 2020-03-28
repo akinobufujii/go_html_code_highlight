@@ -1,11 +1,50 @@
+<!DOCTYPE html>
 <html lang="ja">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/vs.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/vs.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+        hljs.initLineNumbersOnLoad({
+            singleLine: true
+        });
+    </script>
+    <style>
+        .hljs-ln-numbers {
+            text-align: center;
+            color: #ccc;
+            border-right: 1px solid #999;
+            vertical-align: top;
+            padding-right: 5px;
+
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .hljs-ln-code {
+            padding-left: 10px;
+        }
+
+        /* .hljs-ln-code,
+    .hljs-ln-numbers {
+      line-height: 14px;
+    } */
+
+        code {
+            white-space: pre-wrap;
+            overflow: auto;
+        }
+    </style>
+
     <title>{{.Title}}</title>
 </head>
 
