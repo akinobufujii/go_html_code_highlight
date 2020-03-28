@@ -12,11 +12,12 @@ import (
 // SourceHTML ソースをHTML表示するためのもの
 type SourceHTML struct {
 	Title   string
-	Src     string
+	Param   string
 	HTMLSrc template.HTML
 	Time    time.Time
 }
 
+// readSource ソース読み込み
 func readSource(filename string) string {
 	source, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -26,17 +27,23 @@ func readSource(filename string) string {
 	return string(source)
 }
 
-func htmlHandler0(w http.ResponseWriter, r *http.Request) {
+// ServerHandler サーバーハンドラ
+type ServerHandler struct{}
+
+// ServerHTTP 受け口
+func (h *ServerHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("templates/template000.html"))
 
+	// ソースを読み込み表示する
 	srcInfo := SourceHTML{}
 	srcInfo.Title = "main.go"
-	srcInfo.Src = readSource(srcInfo.Title)
-	//srcInfo.Src = template.HTMLEscapeString(srcInfo.Src)
-	//srcInfo.Src = strings.Replace(srcInfo.Src, "\n", "<br>", -1)
-	srcInfo.HTMLSrc = template.HTML(srcInfo.Src)
+	src := readSource(srcInfo.Title)
+
+	srcInfo.HTMLSrc = template.HTML(src)
 	srcInfo.Time = time.Now()
-	fmt.Print(srcInfo.Src)
+	srcInfo.Param = fmt.Sprintf("w = %v r = %v", w, r)
+
+	//fmt.Print(src)
 
 	err := t.Execute(w, srcInfo)
 	if err != nil {
@@ -45,8 +52,14 @@ func htmlHandler0(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/index", htmlHandler0)
+	// 自前のHTTPハンドラ作成
+	handler := ServerHandler{}
 
-	// サーバーを起動
-	http.ListenAndServe(":8989", nil)
+	// サーバー作成
+	server := http.Server{
+		Addr:    "localhost:8989",
+		Handler: &handler,
+	}
+
+	server.ListenAndServe()
 }
