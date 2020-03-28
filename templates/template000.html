@@ -1,0 +1,21 @@
+<html lang="ja">
+
+<!-- <link rel="stylesheet" href="./templates/highlight/styles/default.css">
+    <script src="./templates/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/vs.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Title}}</title>
+</head>
+
+<body>
+    <h1>{{.Title}}</h1>
+    <p>取得時刻: {{.Time.Format "2006/1/2 15:04:05"}}</p>
+    <pre><code>{{.HTMLSrc}}</code></pre>
+</body>
+
+</html>
